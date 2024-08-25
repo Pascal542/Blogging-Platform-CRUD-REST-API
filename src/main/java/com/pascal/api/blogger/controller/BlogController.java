@@ -65,9 +65,12 @@ public class BlogController {
     }
 
     @DeleteMapping("blogs/{id}")
-    public String deleteBlogById(@PathVariable Long id) {
+    public ResponseEntity<String> deleteBlogById(@PathVariable Long id) {
+        if (blogService.getBlogById(id).isEmpty()) {
+            return new ResponseEntity<>("El blog con id: " + id + " no existe", HttpStatus.NOT_FOUND);
+        }
         blogService.deleteBlogById(id);
-        return "El blog con id: " + id + " fue eliminado exitosamente";
+        return new ResponseEntity<>("El blog con id: " + id + " fue eliminado exitosamente", HttpStatus.OK);
     }
 
 
