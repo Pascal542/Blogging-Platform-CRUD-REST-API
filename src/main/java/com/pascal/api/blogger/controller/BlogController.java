@@ -2,10 +2,18 @@ package com.pascal.api.blogger.controller;
 
 import com.pascal.api.blogger.entity.Blog;
 import com.pascal.api.blogger.service.BlogService;
+import jakarta.validation.Valid;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -29,16 +37,31 @@ public class BlogController {
     }
 
     @PostMapping("blogs")
-    public String  saveBlog(@RequestBody Blog blog) {
+    public ResponseEntity<String> saveBlog(@Valid @RequestBody Blog blog, BindingResult result) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(
+                    Objects.requireNonNull(result.getFieldError()).getDefaultMessage(),
+                    HttpStatus.BAD_REQUEST);
+        }
         blogService.saveOrUpdateBlog(blog);
-        return "El blog fue creado exitosamente!!";
+        return new ResponseEntity<>("El blog fue creado exitosamente!!", HttpStatus.CREATED);
     }
 
     @PostMapping("blogs/{id}")
-    public String  updateBlog(@RequestBody Blog blog, @PathVariable Long id) {
+    public ResponseEntity<String> updateBlog(@Valid @RequestBody Blog blog, BindingResult result, @PathVariable Long id) {
+        if (result.hasErrors()) {
+            return new ResponseEntity<>(
+                    Objects.requireNonNull(result.getFieldError()).getDefaultMessage(),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        if (blogService.getBlogById(id).isEmpty()) {
+            return new ResponseEntity<>("El blog con id: " + id + " no existe!!", HttpStatus.NOT_FOUND);
+        }
+
         blog.setId(id);
         blogService.saveOrUpdateBlog(blog);
-        return "El blog con id: " + id + " fue modificado exitosamente!!";
+        return new ResponseEntity<>("El blog fue modificado exitosamente!!", HttpStatus.OK);
     }
 
     @DeleteMapping("blogs/{id}")
