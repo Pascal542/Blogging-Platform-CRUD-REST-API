@@ -44,7 +44,7 @@ public class BlogController {
                     HttpStatus.BAD_REQUEST);
         }
         blogService.saveOrUpdateBlog(blog);
-        return new ResponseEntity<>("El blog fue creado exitosamente!!", HttpStatus.CREATED);
+        return new ResponseEntity<>("El blog fue creado exitosamente", HttpStatus.CREATED);
     }
 
     @PostMapping("blogs/{id}")
@@ -56,18 +56,18 @@ public class BlogController {
         }
 
         if (blogService.getBlogById(id).isEmpty()) {
-            return new ResponseEntity<>("El blog con id: " + id + " no existe!!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("El blog con id: " + id + " no existe", HttpStatus.NOT_FOUND);
         }
 
         blog.setId(id);
         blogService.saveOrUpdateBlog(blog);
-        return new ResponseEntity<>("El blog fue modificado exitosamente!!", HttpStatus.OK);
+        return new ResponseEntity<>("El blog fue modificado exitosamente", HttpStatus.OK);
     }
 
     @DeleteMapping("blogs/{id}")
     public String deleteBlogById(@PathVariable Long id) {
         blogService.deleteBlogById(id);
-        return "El blog con id: " + id + " fue eliminado exitosamente!!";
+        return "El blog con id: " + id + " fue eliminado exitosamente";
     }
 
 
