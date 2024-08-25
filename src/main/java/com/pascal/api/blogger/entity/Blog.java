@@ -1,4 +1,4 @@
-package com.pascal.api.blogger.entitiy;
+package com.pascal.api.blogger.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
