@@ -31,20 +31,20 @@ public class BlogController {
     @PostMapping("blogs")
     public String  saveBlog(@RequestBody Blog blog) {
         blogService.saveOrUpdateBlog(blog);
-        return "El blog fue creado exitosamente";
+        return "El blog fue creado exitosamente!!";
     }
 
     @PostMapping("blogs/{id}")
     public String  updateBlog(@RequestBody Blog blog, @PathVariable Long id) {
         blog.setId(id);
         blogService.saveOrUpdateBlog(blog);
-        return "El blog con id: " + id + " fue modificado exitosamente";
+        return "El blog con id: " + id + " fue modificado exitosamente!!";
     }
 
     @DeleteMapping("blogs/{id}")
     public String deleteBlogById(@PathVariable Long id) {
         blogService.deleteBlogById(id);
-        return "El blog con id: " + id + " fue eliminado exitosamente";
+        return "El blog con id: " + id + " fue eliminado exitosamente!!";
     }
 
 
