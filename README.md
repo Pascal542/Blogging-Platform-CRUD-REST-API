@@ -36,3 +36,30 @@ Lo primero que hay que pensar es en como se almacenarian los datos en MySQL DB
 ### Diagrama de DB
 La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de JPA/Hibernate
 ![blog_table](https://github.com/user-attachments/assets/33d51cfc-3b5b-4859-8128-fd1db1c16651)
+
+
+## Referencia de API
+
+#### Obtener todos los objetos
+
+```http
+  GET /api/v1/blogs
+```
+#### Filtrado opcional por Tag
+```http
+  GET /api/v1/blogs?tag=example
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `tag` | `String` | **Not Required**. Tag por el que se quiere buscar |
+
+#### Obtener un objeto segun el id
+
+```http
+  GET /api/v1/blogs{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `Long` | **Required**. Id del objeto a retornar |
