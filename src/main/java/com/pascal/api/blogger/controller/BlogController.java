@@ -3,11 +3,8 @@ package com.pascal.api.blogger.controller;
 import com.pascal.api.blogger.entity.Blog;
 import com.pascal.api.blogger.service.BlogService;
 import jakarta.validation.Valid;
-import org.apache.logging.log4j.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +23,15 @@ public class BlogController {
         this.blogService = blogService;
     }
 
-    @GetMapping("blogs")
-    public List<Blog> getAllBlogs() {
-        return blogService.getAllBlogs();
+
+    // GETS
+    @GetMapping("/blogs")
+    public List<Blog> getBlogs(@RequestParam(required = false) String tag) {
+        if (tag != null && !tag.isEmpty()) {
+            return blogService.getBlogsByTag(tag);
+        } else {
+            return blogService.getAllBlogs();
+        }
     }
 
     @GetMapping("blogs/{id}")
@@ -36,6 +39,8 @@ public class BlogController {
         return blogService.getBlogById(id);
     }
 
+
+    // POSTS
     @PostMapping("blogs")
     public ResponseEntity<String> saveBlog(@Valid @RequestBody Blog blog, BindingResult result) {
         if (result.hasErrors()) {
@@ -64,6 +69,8 @@ public class BlogController {
         return new ResponseEntity<>("El blog fue modificado exitosamente", HttpStatus.OK);
     }
 
+
+    // DELETE
     @DeleteMapping("blogs/{id}")
     public ResponseEntity<String> deleteBlogById(@PathVariable Long id) {
         if (blogService.getBlogById(id).isEmpty()) {

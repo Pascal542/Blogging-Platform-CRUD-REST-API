@@ -32,4 +32,8 @@ public class BlogService {
     public void deleteBlogById(Long id) {
         blogRepository.deleteById(id);
     }
+
+    public List<Blog> getBlogsByTag(String tag) {
+        return blogRepository.findByTag(tag);
+    }
 }
