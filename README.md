@@ -5,12 +5,14 @@
 
 - Java
 - Spring Boot
-- Spring Data JPA/Hibernate
+- REST API
+- Spring Data JPA
 - MySQL DB
 
 ## Dependencias de Spring
 
 - Spring Web
+- Spring Data JPA
 - Spring Dev Tools
 - Spring MySQL Driver
 - Lombok
