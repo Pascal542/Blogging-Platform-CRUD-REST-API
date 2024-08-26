@@ -31,8 +31,7 @@ Se requiere crear una API RESTful con operaciones CRUD básicas para una platafo
 - Filtrar publicaciones de blog por un término de búsqueda
 
 ## La solucion
-
-Lo primero que hay que pensar es en como se almacenarian los datos en mi MySQL DB
+Lo primero que hay que pensar es en como se almacenarian los datos en MySQL DB
 
 ### Diagrama de DB
 La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de JPA/Hibernate
