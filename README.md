@@ -4,18 +4,12 @@
 ## Tecnologias
 
 - Java
-- Spring Boot
 - REST API
+- Spring Boot
 - Spring Data JPA
 - MySQL DB
-
-## Dependencias de Spring
-
-- Spring Web
-- Spring Data JPA
-- Spring Dev Tools
-- Spring MySQL Driver
 - Lombok
+- Swagger
 
 ## El problema
 
@@ -31,10 +25,10 @@ Se requiere crear una API RESTful con operaciones CRUD básicas para una platafo
 - Filtrar publicaciones de blog por un término de búsqueda
 
 ## La solucion
-Lo primero que hay que pensar es en como se almacenarian los datos en MySQL DB
 
 ### Diagrama de DB
 La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de JPA/Hibernate
+
 ![blog_table](https://github.com/user-attachments/assets/33d51cfc-3b5b-4859-8128-fd1db1c16651)
 
 
@@ -57,9 +51,47 @@ La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de 
 #### Obtener un objeto segun el id
 
 ```http
-  GET /api/v1/blogs{id}
+  GET /api/v1/blogs/{id}
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `Long` | **Required**. Id del objeto a retornar |
+
+#### Crear un objeto en la DB
+
+```http
+  POST /api/v1/blogs
+```
+
+```json
+{
+    "title": "Primer dia en Alemania",
+    "content": "Descripcion del blog en Alemania",
+    "author": "Alonso Salas",
+    "tags": [
+        "Europa",
+        "Cerveza"
+    ]
+}
+```
+
+#### Actualiza un objeto en la DB
+
+```http
+  POST /api/v1/blogs/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `Long` | **Required**. Id del objeto a actualizar |
+
+#### Eliminar un objeto en la DB
+
+```http
+  DELETE /api/v1/blogs/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `Long` | **Required**. Id del objeto a eliminar |
