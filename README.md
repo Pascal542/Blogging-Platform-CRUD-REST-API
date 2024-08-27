@@ -64,6 +64,18 @@ La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de 
   POST /api/v1/blogs
 ```
 
+```json
+{
+    "title": "Primer dia en Alemania",
+    "content": "Descripcion del blog en Alemania",
+    "author": "Alonso Salas",
+    "tags": [
+        "Europa",
+        "Cerveza"
+    ]
+}
+```
+
 #### Actualiza un objeto en la DB
 
 ```http
