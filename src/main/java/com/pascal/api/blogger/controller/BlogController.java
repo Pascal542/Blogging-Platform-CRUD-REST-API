@@ -24,14 +24,10 @@ public class BlogController {
     }
 
 
-    // GETS
+    // GET
     @GetMapping("/blogs")
     public List<Blog> getBlogs(@RequestParam(required = false) String tag) {
-        if (tag != null && !tag.isEmpty()) {
-            return blogService.getBlogsByTag(tag);
-        } else {
-            return blogService.getAllBlogs();
-        }
+        return blogService.getAllBlogs(tag);
     }
 
     @GetMapping("blogs/{id}")
@@ -39,45 +35,21 @@ public class BlogController {
         return blogService.getBlogById(id);
     }
 
-
-    // POSTS
+    // POST
     @PostMapping("blogs")
     public ResponseEntity<String> saveBlog(@Valid @RequestBody Blog blog, BindingResult result) {
-        if (result.hasErrors()) {
-            return new ResponseEntity<>(
-                    Objects.requireNonNull(result.getFieldError()).getDefaultMessage(),
-                    HttpStatus.BAD_REQUEST);
-        }
-        blogService.saveOrUpdateBlog(blog);
-        return new ResponseEntity<>("El blog fue creado exitosamente", HttpStatus.CREATED);
+        return blogService.saveBlog(blog, result);
     }
 
     @PostMapping("blogs/{id}")
     public ResponseEntity<String> updateBlog(@Valid @RequestBody Blog blog, BindingResult result, @PathVariable Long id) {
-        if (result.hasErrors()) {
-            return new ResponseEntity<>(
-                    Objects.requireNonNull(result.getFieldError()).getDefaultMessage(),
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        if (blogService.getBlogById(id).isEmpty()) {
-            return new ResponseEntity<>("El blog con id: " + id + " no existe", HttpStatus.NOT_FOUND);
-        }
-
-        blog.setId(id);
-        blogService.saveOrUpdateBlog(blog);
-        return new ResponseEntity<>("El blog fue modificado exitosamente", HttpStatus.OK);
+       return blogService.updateBlog(blog, result, id);
     }
-
 
     // DELETE
     @DeleteMapping("blogs/{id}")
     public ResponseEntity<String> deleteBlogById(@PathVariable Long id) {
-        if (blogService.getBlogById(id).isEmpty()) {
-            return new ResponseEntity<>("El blog con id: " + id + " no existe", HttpStatus.NOT_FOUND);
-        }
-        blogService.deleteBlogById(id);
-        return new ResponseEntity<>("El blog con id: " + id + " fue eliminado exitosamente", HttpStatus.OK);
+        return blogService.deleteBlogById(id);
     }
 
 
