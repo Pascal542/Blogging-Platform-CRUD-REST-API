@@ -57,7 +57,23 @@ La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de 
 #### Obtener un objeto segun el id
 
 ```http
-  GET /api/v1/blogs{id}
+  GET /api/v1/blogs/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `Long` | **Required**. Id del objeto a retornar |
+
+#### Crear un objeto en la DB
+
+```http
+  POST /api/v1/blogs
+```
+
+#### Actualiza un objeto en la DB
+
+```http
+  POST /api/v1/blogs/{id}
 ```
 
 | Parameter | Type     | Description                       |
