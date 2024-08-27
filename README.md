@@ -4,18 +4,12 @@
 ## Tecnologias
 
 - Java
-- Spring Boot
 - REST API
+- Spring Boot
 - Spring Data JPA
 - MySQL DB
-
-## Dependencias de Spring
-
-- Spring Web
-- Spring Data JPA
-- Spring Dev Tools
-- Spring MySQL Driver
 - Lombok
+- Swagger
 
 ## El problema
 
