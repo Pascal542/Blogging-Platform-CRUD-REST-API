@@ -78,4 +78,14 @@ La tabla se genera en base a nuestra @Entity class llamada Blog con la ayuda de 
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `Long` | **Required**. Id del objeto a retornar |
+| `id`      | `Long` | **Required**. Id del objeto a actualizar |
+
+#### Eliminar un objeto en la DB
+
+```http
+  DELETE /api/v1/blogs/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `Long` | **Required**. Id del objeto a eliminar |
