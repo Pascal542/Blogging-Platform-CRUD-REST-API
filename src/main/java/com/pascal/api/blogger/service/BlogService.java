@@ -3,6 +3,8 @@ package com.pascal.api.blogger.service;
 import com.pascal.api.blogger.entity.Blog;
 import com.pascal.api.blogger.repository.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,11 @@ public class BlogService {
 
     // GET ALL DATA MAIN METHOD
     // GET ALL DATA WITH TAG VALIDATION
-    public List<Blog> getAllBlogs(String tag) {
+    public Page<Blog> getAllBlogs(String tag, Pageable pageable) {
         if (tag != null && !tag.isEmpty()) {
-            return getBlogsByTag(tag);
+            return getBlogsByTag(tag, pageable);
         } else {
-            return blogRepository.findAll();
+            return blogRepository.findAll(pageable);
         }
     }
 
@@ -77,7 +79,7 @@ public class BlogService {
     }
 
     // GET BLOGS BY TAG
-    public List<Blog> getBlogsByTag(String tag) {
-        return blogRepository.findByTag(tag);
+    public Page<Blog> getBlogsByTag(String tag, Pageable pageable) {
+        return blogRepository.findByTag(tag, pageable);
     }
 }

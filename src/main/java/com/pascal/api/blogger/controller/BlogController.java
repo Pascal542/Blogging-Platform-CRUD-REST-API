@@ -4,6 +4,9 @@ import com.pascal.api.blogger.entity.Blog;
 import com.pascal.api.blogger.service.BlogService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,8 +29,9 @@ public class BlogController {
 
     // GET
     @GetMapping("/blogs")
-    public List<Blog> getBlogs(@RequestParam(required = false) String tag) {
-        return blogService.getAllBlogs(tag);
+    public Page<Blog> getBlogs(@RequestParam(required = false) String tag,
+                               @PageableDefault(size = 4, page = 0) Pageable pageable) {
+        return blogService.getAllBlogs(tag, pageable);
     }
 
     @GetMapping("blogs/{id}")
